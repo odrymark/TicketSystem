@@ -30,6 +30,7 @@ public class LoginController
         title.setId("title");
 
         nameField = new TextField();
+        nameField.setOnAction(_ -> login());
         nameField.setPromptText("Username");
 
         passwordField = new PasswordField();
@@ -78,10 +79,21 @@ public class LoginController
 
     private void login()
     {
-        HomeController homeC = new HomeController();
-        Stage stage = (Stage) title.getScene().getWindow();
-        Scene scene = new Scene(homeC.createHomeP());
-        stage.setScene(scene);
-        stage.show();
+        if(nameField.getText().equals("1"))
+        {
+            HomeController homeC = new HomeController();
+            Stage stage = (Stage) title.getScene().getWindow();
+            Scene scene = new Scene(homeC.createHomeP());
+            stage.setScene(scene);
+            stage.show();
+        }
+        else if(nameField.getText().equals("2"))
+        {
+            CoordController homeC = new CoordController();
+            Stage stage = (Stage) title.getScene().getWindow();
+            Scene scene = new Scene(homeC.createCoord());
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }

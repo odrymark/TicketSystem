@@ -1,23 +1,17 @@
 package dk.easv.ticketsystem;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-public class HomeController
+public class CoordController
 {
-    private Label currentP;
-    private FlowPane eventsTickets;
-    private Button eventsButton;
-    private Button ticketsButton;
 
-    public HBox createHomeP()
+    public HBox createCoord()
     {
         HBox root = new HBox(10);
         root.setPrefWidth(790);
@@ -30,13 +24,8 @@ public class HomeController
         Label title = new Label("EASV TICKET");
         title.setId("title");
 
-        eventsButton = new Button("Events");
-        eventsButton.setId("sideBtnSelected");
-        eventsButton.setOnAction(_ -> toTickets(false));
-
-        ticketsButton = new Button("Tickets");
-        ticketsButton.setId("sideBtnNotSelected");
-        ticketsButton.setOnAction(_ -> toTickets(true));
+        Button eventsSideBtn = new Button("My Events");
+        eventsSideBtn.setId("sideBtnSelected");
 
         Separator vSeparator = new Separator(Orientation.VERTICAL);
         vSeparator.setId("vSeparator");
@@ -53,7 +42,7 @@ public class HomeController
         HBox currentPBox = new HBox(10);
         currentPBox.setPadding(new Insets(0, 0, 0, 20));
         VBox currP2Box = new VBox(10);
-        currentP = new Label("Events");
+        Label currentP = new Label("Events");
         currentP.setId("currentP");
         TextField search = new TextField();
         search.setId("search");
@@ -64,11 +53,16 @@ public class HomeController
         searchIcon.setFitHeight(22);
         HBox searchBox = new HBox(2);
         searchBox.setId("searchBox");
+        Button btn = new Button("New Event");
+        btn.setId("newEvent");
+
         searchBox.getChildren().addAll(searchIcon, search);
-        currP2Box.getChildren().addAll(currentP, searchBox);
+        HBox hBox = new HBox(searchBox, btn);
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        currP2Box.getChildren().addAll(currentP, hBox);
         currentPBox.getChildren().add(currP2Box);
 
-        eventsTickets = new FlowPane();
+        FlowPane eventsTickets = new FlowPane();
         eventsTickets.setId("eveTick");
         eventsTickets.setHgap(10);
         eventsTickets.setVgap(15);
@@ -77,15 +71,14 @@ public class HomeController
             eventsTickets.getChildren().add(createEventCard("Event " + i));
         }
 
-        leftBox.getChildren().addAll(title, eventsButton, ticketsButton);
+        leftBox.getChildren().addAll(title, eventsSideBtn);
         rightBox.getChildren().addAll(user, currentPBox, eventsTickets);
         root.getChildren().addAll(leftBox, vSeparator, rightBox);
         root.getStylesheets().add(getClass().getResource("/dk/easv/ticketsystem/homeStyle.css").toExternalForm());
         return root;
     }
 
-    private VBox createEventCard(String eventTitle)
-    {
+    private VBox createEventCard(String eventTitle) {
         VBox card = new VBox(10);
         card.setId("card");
 
@@ -108,48 +101,28 @@ public class HomeController
         Label coordinator = new Label("Event Coordinator: John Snow");
         coordinator.setId("coordinator");
 
+        Label ticketCount = new Label("Number of ticket holders: 200");
+        ticketCount.setId("ticketCount");
+
+        Hyperlink editLink = new Hyperlink("Edit");
+        editLink.setId("link");
+
+        Hyperlink deleteLink = new Hyperlink("Delete");
+        deleteLink.setId("link");
+
+        HBox actions = new HBox(10, editLink, deleteLink);
+        actions.setAlignment(Pos.CENTER_RIGHT);
+
         Separator separator = new Separator();
 
-        HBox bottomRow = new HBox();
-        bottomRow.setSpacing(370);
+        HBox bottomRow = new HBox(10);
         bottomRow.setAlignment(Pos.CENTER_LEFT);
+        bottomRow.setSpacing(80);
+        HBox.setHgrow(actions, Priority.ALWAYS);
 
-        Hyperlink ticketLink = new Hyperlink("Get Ticket");
-        ticketLink.setId("link");
-
-        bottomRow.getChildren().addAll(coordinator, ticketLink);
+        bottomRow.getChildren().addAll(coordinator, ticketCount, actions);
         card.getChildren().addAll(titleRow, description, separator, bottomRow);
 
         return card;
-    }
-
-    private void toTickets(boolean isToTickets)
-    {
-        ObservableList<Node> cards = eventsTickets.getChildren();
-
-        for(int i = 0; i < 3; i++)
-        {
-            if(cards.get(i) instanceof VBox vBox)
-            {
-                HBox hBox = (HBox) vBox.getChildren().getLast();
-
-                Hyperlink link = (Hyperlink) hBox.getChildren().getLast();
-
-                if(isToTickets)
-                {
-                    link.setText("Open Ticket");
-                    currentP.setText("Tickets");
-                    eventsButton.setId("sideBtnNotSelected");
-                    ticketsButton.setId("sideBtnSelected");
-                }
-                else
-                {
-                    link.setText("Get Ticket");
-                    currentP.setText("Events");
-                    eventsButton.setId("sideBtnSelected");
-                    ticketsButton.setId("sideBtnNotSelected");
-                }
-            }
-        }
     }
 }

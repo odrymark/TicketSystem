@@ -34,7 +34,7 @@
     -fx-background-radius: 8;
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
-    -fx-padding: 15px 15px 15px 15px;
+    -fx-padding: 15px;
 }
 #eventTitle
 {
@@ -58,7 +58,7 @@
 #link
 {
     -fx-font-size: 12px;
-    -fx-text-fill: #6c63ff;
+    -fx-text-fill: #6c43ff;
 }
 #user
 {
@@ -92,4 +92,36 @@
 #searchIcon
 {
     -fx-translate-x: 5px;
+}
+#sideBtnSelected
+{
+    -fx-background-color: #f4f0ff;
+    -fx-text-fill: #6c43ff;
+}
+#sideBtnNotSelected
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+#sideBtnNotSelected:hover
+{
+    -fx-background-color: #f4f0ff;
+    -fx-text-fill: #6c43ff;
+}
+#ticketCount
+{
+    -fx-font-size: 13px;
+    -fx-text-fill: grey;
+}
+#newEvent
+{
+    -fx-translate-x: 310px;
+    -fx-background-color: #6c43ff;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
 }
