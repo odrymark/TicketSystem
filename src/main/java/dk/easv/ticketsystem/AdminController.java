@@ -8,15 +8,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-public class CoordController
+public class AdminController
 {
-    private FlowPane eventsTickets;
     private HBox hBox;
+    private FlowPane eventsTickets;
     private VBox rightBoxHome;
     private VBox currP2Box;
     private Label currentP;
 
-    public HBox createCoord()
+    public HBox createAdminP()
     {
         HBox root = new HBox(10);
         root.setPrefWidth(790);
@@ -29,8 +29,11 @@ public class CoordController
         Label title = new Label("EASV TICKET");
         title.setId("title");
 
-        Button eventsSideBtn = new Button("My Events");
-        eventsSideBtn.setId("sideBtnSelected");
+        Button eventsButton = new Button("Events");
+        eventsButton.setId("sideBtnNotSelected");
+
+        Button ticketsButton = new Button("Users");
+        ticketsButton.setId("sideBtnSelected");
 
         Separator vSeparator = new Separator(Orientation.VERTICAL);
         vSeparator.setId("vSeparator");
@@ -47,7 +50,7 @@ public class CoordController
         HBox currentPBox = new HBox(10);
         currentPBox.setPadding(new Insets(0, 0, 0, 20));
         currP2Box = new VBox(10);
-        currentP = new Label("Events");
+        currentP = new Label("Users");
         currentP.setId("currentP");
         TextField search = new TextField();
         search.setId("search");
@@ -56,12 +59,12 @@ public class CoordController
         searchIcon.setId("searchIcon");
         searchIcon.setFitWidth(22);
         searchIcon.setFitHeight(22);
-        HBox searchBox = new HBox(2);
-        searchBox.setId("searchBox");
-        Button btn = new Button("New Event");
-        btn.setId("newEvent");
+        Button btn = new Button("New User");
+        btn.setId("newUser");
         btn.setOnAction(_ -> addWindow(true));
 
+        HBox searchBox = new HBox(2);
+        searchBox.setId("searchBox");
         searchBox.getChildren().addAll(searchIcon, search);
         hBox = new HBox(searchBox, btn);
         hBox.setAlignment(Pos.CENTER_RIGHT);
@@ -74,41 +77,37 @@ public class CoordController
         eventsTickets.setVgap(15);
         eventsTickets.setPrefWrapLength(600);
         for (int i = 1; i <= 3; i++) {
-            eventsTickets.getChildren().add(createEventCard("Event " + i));
+            eventsTickets.getChildren().add(createUserCard("User " + i, "example@gmail.com", "User"));
         }
 
-        leftBox.getChildren().addAll(title, eventsSideBtn);
+        leftBox.getChildren().addAll(title, eventsButton, ticketsButton);
         rightBoxHome.getChildren().addAll(user, currentPBox, eventsTickets);
         root.getChildren().addAll(leftBox, vSeparator, rightBoxHome);
         root.getStylesheets().add(getClass().getResource("/dk/easv/ticketsystem/homeStyle.css").toExternalForm());
         return root;
     }
 
-    private VBox createEventCard(String eventTitle) {
-        VBox card = new VBox(10);
-        card.setId("card");
 
-        Label title = new Label(eventTitle);
-        title.setId("eventTitle");
+    private VBox createUserCard(String name, String email, String type) {
+        VBox row = new VBox(-10);
+        row.setId("userCard");
+        row.setAlignment(Pos.CENTER_LEFT);
 
-        Label time = new Label("Posted at 12:45 AM");
-        time.setId("time");
+        VBox userInfo = new VBox(5);
+
+        Label nameLabel = new Label(name);
+        nameLabel.setId("username");
+
+        Label emailLabel = new Label("Email: " + email);
+        emailLabel.setId("infoLabel");
+
+        Label typeLabel = new Label("Type: " + type);
+        typeLabel.setId("infoLabel");
+
+        userInfo.getChildren().addAll(nameLabel, emailLabel, typeLabel);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-
-        HBox titleRow = new HBox(title, spacer, time);
-        titleRow.setAlignment(Pos.CENTER_LEFT);
-
-        Label description = new Label("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        description.setWrapText(true);
-        description.setId("description");
-
-        Label coordinator = new Label("Event Coordinator: John Snow");
-        coordinator.setId("coordinator");
-
-        Label ticketCount = new Label("Number of ticket holders: 200");
-        ticketCount.setId("ticketCount");
 
         Hyperlink editLink = new Hyperlink("Edit");
         editLink.setId("link");
@@ -119,17 +118,9 @@ public class CoordController
         HBox actions = new HBox(10, editLink, deleteLink);
         actions.setAlignment(Pos.CENTER_RIGHT);
 
-        Separator separator = new Separator();
+        row.getChildren().addAll(userInfo, spacer, actions);
 
-        HBox bottomRow = new HBox(10);
-        bottomRow.setAlignment(Pos.CENTER_LEFT);
-        bottomRow.setSpacing(80);
-        HBox.setHgrow(actions, Priority.ALWAYS);
-
-        bottomRow.getChildren().addAll(coordinator, ticketCount, actions);
-        card.getChildren().addAll(titleRow, description, separator, bottomRow);
-
-        return card;
+        return row;
     }
 
     private void addWindow(boolean isAddWindow)
@@ -138,19 +129,19 @@ public class CoordController
         {
             currP2Box.getChildren().remove(1);
             rightBoxHome.getChildren().remove(2);
-            rightBoxHome.getChildren().add(newEvent());
-            currentP.setText("Create Event");
+            rightBoxHome.getChildren().add(newUser());
+            currentP.setText("Create User");
         }
         else
         {
             currP2Box.getChildren().add(hBox);
             rightBoxHome.getChildren().remove(2);
             rightBoxHome.getChildren().add(eventsTickets);
-            currentP.setText("Events");
+            currentP.setText("Users");
         }
     }
 
-    private VBox newEvent()
+    private VBox newUser()
     {
         VBox root = new VBox(20);
         root.setPadding(new Insets(20));
@@ -159,27 +150,20 @@ public class CoordController
         inputRow.setAlignment(Pos.CENTER_LEFT);
 
         TextField titleField = new TextField();
-        titleField.setPromptText("Type Title");
+        titleField.setPromptText("Type Name");
         titleField.setId("inputField");
         TextField locationField = new TextField();
-        locationField.setPromptText("Type Location");
+        locationField.setPromptText("Type Email");
         locationField.setId("inputField");
         TextField dateTimeField = new TextField();
-        dateTimeField.setPromptText("Type Date & Time");
+        dateTimeField.setPromptText("Select Type");
         dateTimeField.setId("inputField");
 
-        VBox titleBox = labeledInputs("Title", titleField);
-        VBox locationBox = labeledInputs("Location", locationField);
-        VBox dateTimeBox = labeledInputs("Date & Time", dateTimeField);
+        VBox titleBox = labeledInputs("Name", titleField);
+        VBox locationBox = labeledInputs("Email", locationField);
+        VBox dateTimeBox = labeledInputs("Type", dateTimeField);
 
         inputRow.getChildren().addAll(titleBox, locationBox, dateTimeBox);
-
-        Label descriptionLabel = new Label("Description");
-        TextArea descriptionArea = new TextArea();
-        descriptionArea.setPromptText("Type description here...");
-        descriptionArea.setId("descInput");
-
-        VBox descriptionBox = new VBox(5, descriptionLabel, descriptionArea);
 
         Button submitButton = new Button("Submit");
         submitButton.setId("addNewEvent");
@@ -194,7 +178,7 @@ public class CoordController
         HBox buttonBox = new HBox(cancelButton, region, submitButton);
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
 
-        root.getChildren().addAll(inputRow, descriptionBox, buttonBox);
+        root.getChildren().addAll(inputRow, buttonBox);
         return root;
     }
 

@@ -59,6 +59,7 @@
 {
     -fx-font-size: 12px;
     -fx-text-fill: #6c43ff;
+    -fx-cursor: hand;
 }
 #user
 {
@@ -102,6 +103,7 @@
 {
     -fx-background-color: transparent;
     -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 #sideBtnNotSelected:hover
 {
@@ -116,6 +118,18 @@
 #newEvent
 {
     -fx-translate-x: 310px;
+    -fx-background-color: #6c43ff;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+#newUser
+{
+    -fx-translate-x: 270px;
     -fx-background-color: #6c43ff;
     -fx-text-fill: white;
     -fx-font-size: 12px;
@@ -146,4 +160,21 @@
     -fx-padding: 10px 20px;
     -fx-background-radius: 8px;
     -fx-pref-width: 100px;
+    -fx-cursor: hand;
+}
+#userCard
+{
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5px;
+    -fx-min-width: 430px;
+    -fx-padding: 10px;
+    -fx-pref-width: 580px;
+}
+#username
+{
+    -fx-font-weight: bold;
+}
+#infoLabel
+{
+    -fx-text-fill: grey;
 }

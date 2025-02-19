@@ -89,9 +89,17 @@ public class LoginController
         }
         else if(nameField.getText().equals("2"))
         {
-            CoordController homeC = new CoordController();
+            CoordController coordC = new CoordController();
             Stage stage = (Stage) title.getScene().getWindow();
-            Scene scene = new Scene(homeC.createCoord());
+            Scene scene = new Scene(coordC.createCoord());
+            stage.setScene(scene);
+            stage.show();
+        }
+        else if(nameField.getText().equals("3"))
+        {
+            AdminController adminC = new AdminController();
+            Stage stage = (Stage) title.getScene().getWindow();
+            Scene scene = new Scene(adminC.createAdminP());
             stage.setScene(scene);
             stage.show();
         }
