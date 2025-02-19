@@ -1,0 +1,95 @@
+#leftBox
+{
+    -fx-min-width: 125px;
+    -fx-pref-width: 125px;
+}
+#vSeparator
+{
+}
+#rightBox
+{
+    -fx-pref-width: 475px;
+}
+#title
+{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 0px 0px 20px;
+}
+#currentP
+{
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    -fx-translate-x: -20px;
+}
+#eveTick
+{
+    -fx-padding: 5px 20px 20px 20px;
+    -fx-alignment: CENTER;
+}
+#card
+{
+    -fx-border-color: #ddd;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 3);
+    -fx-padding: 15px 15px 15px 15px;
+}
+#eventTitle
+{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+#description
+{
+    -fx-max-width: 610px;
+}
+#coordinator
+{
+    -fx-font-size: 12px;
+    -fx-text-fill: gray;
+}
+#time
+{
+    -fx-font-size: 12px;
+    -fx-text-fill: gray;
+}
+#link
+{
+    -fx-font-size: 12px;
+    -fx-text-fill: #6c63ff;
+}
+#user
+{
+    -fx-background-color: #fafafa;
+    -fx-background-radius: 20px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+    -fx-border-color: transparent;
+    -fx-translate-y: 10px;
+}
+#searchBox
+{
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 5px;
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1px;
+}
+#search
+{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+}
+#searchIcon
+{
+    -fx-translate-x: 5px;
+}
