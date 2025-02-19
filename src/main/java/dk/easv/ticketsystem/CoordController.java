@@ -10,10 +10,16 @@ import javafx.scene.layout.*;
 
 public class CoordController
 {
+    private HBox root;
+    private FlowPane eventsTickets;
+    private HBox hBox;
+    private VBox rightBoxHome;
+    private VBox currP2Box;
+    private Label currentP;
 
     public HBox createCoord()
     {
-        HBox root = new HBox(10);
+        root = new HBox(10);
         root.setPrefWidth(790);
         root.setPrefHeight(400);
 
@@ -30,9 +36,9 @@ public class CoordController
         Separator vSeparator = new Separator(Orientation.VERTICAL);
         vSeparator.setId("vSeparator");
 
-        VBox rightBox = new VBox(10);
-        rightBox.setId("rightBox");
-        rightBox.setAlignment(Pos.TOP_RIGHT);
+        rightBoxHome = new VBox(10);
+        rightBoxHome.setId("rightBox");
+        rightBoxHome.setAlignment(Pos.TOP_RIGHT);
 
         ChoiceBox<String> user = new ChoiceBox<>();
         user.getItems().add("Alex Robert");
@@ -41,8 +47,8 @@ public class CoordController
 
         HBox currentPBox = new HBox(10);
         currentPBox.setPadding(new Insets(0, 0, 0, 20));
-        VBox currP2Box = new VBox(10);
-        Label currentP = new Label("Events");
+        currP2Box = new VBox(10);
+        currentP = new Label("Events");
         currentP.setId("currentP");
         TextField search = new TextField();
         search.setId("search");
@@ -55,14 +61,15 @@ public class CoordController
         searchBox.setId("searchBox");
         Button btn = new Button("New Event");
         btn.setId("newEvent");
+        btn.setOnAction(_ -> addWindow(true));
 
         searchBox.getChildren().addAll(searchIcon, search);
-        HBox hBox = new HBox(searchBox, btn);
+        hBox = new HBox(searchBox, btn);
         hBox.setAlignment(Pos.CENTER_RIGHT);
         currP2Box.getChildren().addAll(currentP, hBox);
         currentPBox.getChildren().add(currP2Box);
 
-        FlowPane eventsTickets = new FlowPane();
+        eventsTickets = new FlowPane();
         eventsTickets.setId("eveTick");
         eventsTickets.setHgap(10);
         eventsTickets.setVgap(15);
@@ -72,8 +79,8 @@ public class CoordController
         }
 
         leftBox.getChildren().addAll(title, eventsSideBtn);
-        rightBox.getChildren().addAll(user, currentPBox, eventsTickets);
-        root.getChildren().addAll(leftBox, vSeparator, rightBox);
+        rightBoxHome.getChildren().addAll(user, currentPBox, eventsTickets);
+        root.getChildren().addAll(leftBox, vSeparator, rightBoxHome);
         root.getStylesheets().add(getClass().getResource("/dk/easv/ticketsystem/homeStyle.css").toExternalForm());
         return root;
     }
@@ -124,5 +131,76 @@ public class CoordController
         card.getChildren().addAll(titleRow, description, separator, bottomRow);
 
         return card;
+    }
+
+    private void addWindow(boolean isAddWindow)
+    {
+        if(isAddWindow)
+        {
+            currP2Box.getChildren().remove(1);
+            rightBoxHome.getChildren().remove(2);
+            rightBoxHome.getChildren().add(newEvent());
+            currentP.setText("Create Event");
+        }
+        else
+        {
+            currP2Box.getChildren().add(hBox);
+            rightBoxHome.getChildren().remove(2);
+            rightBoxHome.getChildren().add(eventsTickets);
+            currentP.setText("Events");
+        }
+    }
+
+    private VBox newEvent()
+    {
+        VBox root = new VBox(20);
+        root.setPadding(new Insets(20));
+
+        HBox inputRow = new HBox(15);
+        inputRow.setAlignment(Pos.CENTER_LEFT);
+
+        TextField titleField = new TextField();
+        titleField.setPromptText("Type Title");
+        titleField.setId("inputField");
+        TextField locationField = new TextField();
+        locationField.setPromptText("Type Location");
+        locationField.setId("inputField");
+        TextField dateTimeField = new TextField();
+        dateTimeField.setPromptText("Type Date & Time");
+        dateTimeField.setId("inputField");
+
+        VBox titleBox = labeledInputs("Title", titleField);
+        VBox locationBox = labeledInputs("Location", locationField);
+        VBox dateTimeBox = labeledInputs("Date & Time", dateTimeField);
+
+        inputRow.getChildren().addAll(titleBox, locationBox, dateTimeBox);
+
+        Label descriptionLabel = new Label("Description");
+        TextArea descriptionArea = new TextArea();
+        descriptionArea.setPromptText("Type description here...");
+        descriptionArea.setId("descInput");
+
+        VBox descriptionBox = new VBox(5, descriptionLabel, descriptionArea);
+
+        Button submitButton = new Button("Submit");
+        submitButton.setId("addNewEvent");
+        submitButton.setOnAction(_ -> {});
+
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setId("addNewEvent");
+        cancelButton.setOnAction(_ -> addWindow(false));
+
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+        HBox buttonBox = new HBox(cancelButton, region, submitButton);
+        buttonBox.setAlignment(Pos.BOTTOM_RIGHT);
+
+        root.getChildren().addAll(inputRow, descriptionBox, buttonBox);
+        return root;
+    }
+
+    private VBox labeledInputs(String label, Control inputField) {
+        Label inputLabel = new Label(label);
+        return new VBox(5, inputLabel, inputField);
     }
 }

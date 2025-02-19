@@ -125,3 +125,25 @@
     -fx-background-radius: 8px;
     -fx-cursor: hand;
 }
+#inputField
+{
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-pref-width: 190px;
+    -fx-min-width: 190px;
+}
+#descInput
+{
+    -fx-pref-height: 100px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+}
+#addNewEvent
+{
+    -fx-background-color: #6c43ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 8px;
+    -fx-pref-width: 100px;
+}
