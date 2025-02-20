@@ -15,6 +15,9 @@ public class AdminController
     private VBox rightBoxHome;
     private VBox currP2Box;
     private Label currentP;
+    private Image eventsImg;
+    private Image eventsNotSelImg;
+    private ImageView eventsIcon;
 
     public HBox createAdminP()
     {
@@ -29,11 +32,26 @@ public class AdminController
         Label title = new Label("EASV TICKET");
         title.setId("title");
 
-        Button eventsButton = new Button("Events");
+        eventsImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/events.png"));
+        eventsNotSelImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/eventsNotSel.png"));
+        eventsIcon = new ImageView(eventsNotSelImg);
+        eventsIcon.setFitWidth(20);
+        eventsIcon.setFitHeight(15);
+        eventsIcon.setPreserveRatio(true);
+        Button eventsButton = new Button("Events", eventsIcon);
         eventsButton.setId("sideBtnNotSelected");
+        eventsButton.setPadding(new Insets(0, 0, 0, 11));
+        eventsButton.setGraphicTextGap(10);
 
-        Button ticketsButton = new Button("Users");
-        ticketsButton.setId("sideBtnSelected");
+        Image userImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/user.png"));
+        ImageView userIcon = new ImageView(userImg);
+        userIcon.setFitWidth(20);
+        userIcon.setFitHeight(18);
+        userIcon.setPreserveRatio(true);
+        Button usersButton = new Button("Users", userIcon);
+        usersButton.setId("sideBtnSelected");
+        usersButton.setPadding(new Insets(0, 0, 0, 12));
+        usersButton.setGraphicTextGap(11);
 
         Separator vSeparator = new Separator(Orientation.VERTICAL);
         vSeparator.setId("vSeparator");
@@ -80,7 +98,7 @@ public class AdminController
             eventsTickets.getChildren().add(createUserCard("User " + i, "example@gmail.com", "User"));
         }
 
-        leftBox.getChildren().addAll(title, eventsButton, ticketsButton);
+        leftBox.getChildren().addAll(title, eventsButton, usersButton);
         rightBoxHome.getChildren().addAll(user, currentPBox, eventsTickets);
         root.getChildren().addAll(leftBox, vSeparator, rightBoxHome);
         root.getStylesheets().add(getClass().getResource("/dk/easv/ticketsystem/homeStyle.css").toExternalForm());

@@ -16,6 +16,12 @@ public class HomeController
     private FlowPane eventsTickets;
     private Button eventsButton;
     private Button ticketsButton;
+    private Image ticketsImg;
+    private Image ticketsSelImg;
+    private ImageView ticketsIcon;
+    private Image eventsImg;
+    private Image eventsNotSelImg;
+    private ImageView eventsIcon;
 
     public HBox createHomeP()
     {
@@ -30,11 +36,27 @@ public class HomeController
         Label title = new Label("EASV TICKET");
         title.setId("title");
 
-        eventsButton = new Button("Events");
+        eventsNotSelImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/eventsNotSel.png"));
+        eventsImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/events.png"));
+        eventsIcon = new ImageView(eventsImg);
+        eventsIcon.setFitWidth(20);
+        eventsIcon.setFitHeight(15);
+        eventsIcon.setPreserveRatio(true);
+        eventsButton = new Button("Events", eventsIcon);
+        eventsButton.setGraphicTextGap(10);
         eventsButton.setId("sideBtnSelected");
+        eventsButton.setPadding(new Insets(0, 0, 0, 11));
         eventsButton.setOnAction(_ -> toTickets(false));
 
-        ticketsButton = new Button("Tickets");
+        ticketsSelImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/ticketSel.png"));
+        ticketsImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/ticket.png"));
+        ticketsIcon = new ImageView(ticketsImg);
+        ticketsIcon.setFitWidth(20);
+        ticketsIcon.setFitHeight(15);
+        ticketsIcon.setPreserveRatio(true);
+        ticketsButton = new Button("Tickets", ticketsIcon);
+        ticketsButton.setGraphicTextGap(8);
+        ticketsButton.setPadding(new Insets(0, 0, 0, 10));
         ticketsButton.setId("sideBtnNotSelected");
         ticketsButton.setOnAction(_ -> toTickets(true));
 
@@ -141,6 +163,8 @@ public class HomeController
                     currentP.setText("Tickets");
                     eventsButton.setId("sideBtnNotSelected");
                     ticketsButton.setId("sideBtnSelected");
+                    ticketsIcon.setImage(ticketsSelImg);
+                    eventsIcon.setImage(eventsNotSelImg);
                 }
                 else
                 {
@@ -148,6 +172,8 @@ public class HomeController
                     currentP.setText("Events");
                     eventsButton.setId("sideBtnSelected");
                     ticketsButton.setId("sideBtnNotSelected");
+                    ticketsIcon.setImage(ticketsImg);
+                    eventsIcon.setImage(eventsImg);
                 }
             }
         }

@@ -29,8 +29,16 @@ public class CoordController
         Label title = new Label("EASV TICKET");
         title.setId("title");
 
-        Button eventsSideBtn = new Button("My Events");
+        Image eventsImg = new Image(getClass().getResourceAsStream("/dk/easv/ticketsystem/events.png"));
+        ImageView eventsIcon = new ImageView(eventsImg);
+        eventsIcon.setFitWidth(20);
+        eventsIcon.setFitHeight(15);
+        eventsIcon.setPreserveRatio(true);
+        Button eventsSideBtn = new Button("My Events", eventsIcon);
+        eventsSideBtn.setGraphicTextGap(8);
+        eventsSideBtn.setPadding(new Insets(0, 0, 0, 10));
         eventsSideBtn.setId("sideBtnSelected");
+
 
         Separator vSeparator = new Separator(Orientation.VERTICAL);
         vSeparator.setId("vSeparator");
